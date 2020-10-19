@@ -11,6 +11,7 @@
     <!-- CUSTOM COLORS -->
     <color name="primaryColor">#3AB44B</color>
     <color name="secondaryColor">#66666666</color>
+    <color name="grayColor">#F2F2F2F2</color>
 
 
     <color name="colorPrimary">#131EEA</color>
@@ -20,4 +21,6 @@
     <color name="colorLayerSemiDark">#60000000</color>
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextHint">#808080</color>
+    <color name="colorBalanceStart">#09C6F9</color>
+    <color name="colorBalanceEnd">#045DE9</color>
 </resources>

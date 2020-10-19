@@ -33,4 +33,13 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <!-- PAGE UP ACTIVITY STYLE -->
+    <style name="PageUpDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/PageUpStyle</item>
+    </style>
+
+    <style name="PageUpStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>
