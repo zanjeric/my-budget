@@ -3,6 +3,10 @@
 # Navodila
 ### Vse komande pises v terminal znotrej Android Studio in sicer v direktorij 'my-budget'
 ![img01](https://github.com/zanjeric/my-budget/.readme-files/img01.png "img01")
+
+0. Updatas projekt predenj naredis nov branch
+  * ![img04](https://github.com/zanjeric/my-budget/.readme-files/img04.png "img04")
+
 1. Naredis nov branch
   * ```git checkout -b <feature-branch-name>```
   
