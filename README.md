@@ -6,7 +6,7 @@
 ![img01](https://github.com/zanjeric/my-budget/blob/main/.readme-files/img01.png "img01")
 
 0. Updatas projekt predenj naredis nov branch
-  * ![img04](https://github.com/zanjeric/my-budget/.readme-files/img04.png "img04")
+  * ![img04](https://github.com/zanjeric/my-budget/blob/main/.readme-files/img04.png "img04")
   
 1. Naredis nov branch
   * ```git checkout -b <feature-branch-name>```
