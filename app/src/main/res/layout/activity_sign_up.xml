@@ -109,6 +109,45 @@
             />
 
         <EditText
+            android:id="@+id/inputFullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="40dp"
+            android:background="@null"
+            android:hint="Full name"
+            android:textColor="@color/colorTextPrimary"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:paddingStart="60dp"
+            android:paddingEnd="10dp"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/textSignUp"
+            tools:ignore="Autofill"
+            />
+
+        <View
+            android:id="@+id/viewDividerForFullname"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorTextHint"
+            app:layout_constraintTop_toBottomOf="@+id/inputFullname" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_user"
+            android:tint="@color/colorTextHint"
+            app:layout_constraintBottom_toBottomOf="@+id/inputFullname"
+            app:layout_constraintStart_toStartOf="@+id/inputFullname"
+            />
+
+        <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,7 +162,7 @@
             android:paddingStart="60dp"
             android:paddingEnd="10dp"
             android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@+id/textSignUp"
+            app:layout_constraintTop_toBottomOf="@+id/inputFullname"
             tools:ignore="Autofill"
             />
 

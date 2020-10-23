@@ -8,22 +8,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity {
+public class StatisticsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_statistics);
+
         /* Bottom menu */
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavMenu);
-        bottomNavigationView.setSelectedItemId(R.id.menuHome);
+        bottomNavigationView.setSelectedItemId(R.id.menuStatistics);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btnOpenPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.Theme_Design_BottomSheetDialog);
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(StatisticsActivity.this, R.style.Theme_Design_BottomSheetDialog);
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_page_up,(LinearLayout)findViewById(R.id.pageUpContainer));
                 bottomSheetView.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
                     @Override
