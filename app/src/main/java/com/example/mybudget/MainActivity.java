@@ -2,6 +2,7 @@ package com.example.mybudget;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,31 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         /* Bottom menu */
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavMenu);
-        bottomNavigationView.setSelectedItemId(R.id.menuHome);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHome:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.menuHistory:
-                        startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.menuStatistics:
-                        startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.menuSettings:
-                        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
         /* ADD BUTTON */
         FloatingActionButton btnOpenPage = findViewById(R.id.btnOpenPage);
@@ -67,4 +45,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment = null;
+            switch (item.getItemId()) {
+                case R.id.menuHome:
+                    selectedFragment = new HomeFragment();
+                    break;
+                case R.id.menuHistory:
+                    selectedFragment = new HistoryFragment();
+                    break;
+                case R.id.menuStatistics:
+                    selectedFragment = new StatisticsFragment();
+                    break;
+                case R.id.menuSettings:
+                    selectedFragment = new SettingsFragment();
+                    break;
+            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            return true;
+        }
+    };
+
 }
