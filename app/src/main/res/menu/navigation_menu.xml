@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menuHome"
       android:icon="@drawable/ic_baseline_dashboard_24"
-        android:state_checked="true"
-    android:title="Dashboard" />
-    <item android:id="@+id/menuPlan"
-        android:icon="@drawable/ic_search"
-        android:title="Planning" />
+      android:title="Dashboard" />
+    <item android:id="@+id/menuHistory"
+        android:icon="@drawable/ic_av_timer"
+        android:title="History" />
     <item android:id="@+id/menuPlus"
         android:color="@color/white"
         android:title="" />

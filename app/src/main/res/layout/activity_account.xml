@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/login_header" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/intro_transparent_background" />
+
+    <View
+        android:id="@+id/viewSupporter"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+      <!--<ImageView
+        android:id="@+id/imageFacebook"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="6dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/viewSupporter"
+        />
+
+    <ImageView
+        android:id="@+id/imageGoogle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="6dp"
+        android:padding="3dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_baseline_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/viewSupporter"
+        />-->
+
+    <Button
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/secondary_button_background"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:text="Google Sign In"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/viewSupporter"
+        />
+
+
+    <TextView
+        android:id="@+id/textSignInWith"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="Or Sign In with"
+        android:textColor="@color/grayColor"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoogleSignIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnGoToSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/secondary_button_background"
+        android:layout_marginBottom="35dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:text="Sign Up"
+        android:textColor="@color/primaryColor"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/textSignInWith" />
+    />
+
+    <Button
+        android:id="@+id/btnGoToLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/primary_button_background"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoToSignUp"
+        />
+
+
+    <ImageView
+        android:id="@+id/logoCenter"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="250dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo_mybudget"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoToLogin"
+        app:layout_constraintEnd_toEndOf="@+id/btnGoToLogin" />
+    />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="15dp"
+        android:text="App for money tracking"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/logoCenter"
+        />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

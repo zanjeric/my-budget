@@ -12,6 +12,7 @@
     <color name="primaryColor">#3AB44B</color>
     <color name="secondaryColor">#66666666</color>
     <color name="grayColor">#F2F2F2F2</color>
+    <color name="darkGrayColor">#333333</color>
 
 
     <color name="colorPrimary">#131EEA</color>
