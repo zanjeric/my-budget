@@ -7,4 +7,8 @@
     <string name="login">Login</string>
     <string name="forgotPassword">Forgot Password?</string>
     <string name="signUp">Create Account</string>
+    <string name="email_error">Please insert email.</string>
+    <string name="username_error">Please insert username.</string>
+    <string name="password_error">Please insert password.</string>
+    <string name="fields_error">Please fill in the fields.</string>
 </resources>
