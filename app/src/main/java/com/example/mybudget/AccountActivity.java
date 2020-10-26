@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -110,7 +111,7 @@ public class AccountActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                // TODO: display a Toast
+                Toast.makeText(AccountActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         }
@@ -129,6 +130,7 @@ public class AccountActivity extends AppCompatActivity {
 
                             Map<String, Object> userObject = new HashMap<>();
                             userObject.put("email", user.getEmail());
+                            userObject.put("username", user.getDisplayName());
 
                             db.collection("users")
                                     .document(user.getUid())
@@ -136,13 +138,14 @@ public class AccountActivity extends AppCompatActivity {
                                     .addOnSuccessListener(e -> Log.w(TAG, "User written successfully"))
                                     .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
 
+                            Toast.makeText(AccountActivity.this, "Signed in with Google account.", Toast.LENGTH_SHORT).show();
                             updateUI(user);
-                            // TODO: display a Toast
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(AccountActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AccountActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             updateUI(null);
-                            // TODO: display a Toast
                         }
 
                         // ...
