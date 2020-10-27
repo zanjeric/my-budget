@@ -2,7 +2,6 @@ package com.example.mybudget;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +10,23 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.List;
 
 
 public class BottomDialogFragment extends BottomSheetDialogFragment {
     private FirebaseFirestore db;
+    private RadioButton rbLeft, rbRight;
+    private TextView operatorText;
+    private EditText amountText;
+    private Spinner categorySpinner;
+    private int amountNumber;
 
     @Nullable
     @Override
@@ -36,15 +37,20 @@ public class BottomDialogFragment extends BottomSheetDialogFragment {
         db = FirebaseFirestore.getInstance();
 
         /* Radio buttons */
-        view.findViewById(R.id.rbLeft).setOnClickListener(onRadioBtnClicked);
-        view.findViewById(R.id.rbRight).setOnClickListener(onRadioBtnClicked);
+        rbLeft= view.findViewById(R.id.rbLeft);
+        rbRight = view.findViewById(R.id.rbRight);
+        /* Radio button event listeners */
+        rbLeft.setOnClickListener(onRadioBtnClicked);
+        rbRight.setOnClickListener(onRadioBtnClicked);
+
+        operatorText = view.findViewById(R.id.sign);
 
         /* Amount input */
-        EditText amountText = view.findViewById(R.id.amountValue);
-        String amount = amountText.getText().toString();
+        amountText = view.findViewById(R.id.amountValue);
+        amountNumber = Integer.parseInt(amountText.getText().toString());
 
         /* Choose category */
-        Spinner categorySpinner = view.findViewById(R.id.categorySpinner);
+        categorySpinner = view.findViewById(R.id.categorySpinner);
         String[] categoryArray = {"Food","Health","Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),R.layout.support_simple_spinner_dropdown_item,categoryArray);
         categorySpinner.setAdapter(adapter);
@@ -56,41 +62,29 @@ public class BottomDialogFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
-
         //setStyle(STYLE_NORMAL,R.style.Theme_Design_BottomSheetDialog);
 
         return view;
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-    }
-
     private View.OnClickListener onRadioBtnClicked = new View.OnClickListener()  {
         public void onClick(View view) {
-            RadioButton rbLeft = view.findViewById(R.id.rbLeft);
-            RadioButton rbRight = view.findViewById(R.id.rbRight);
             boolean isSelected = ((RadioButton) view).isChecked();
             switch (view.getId()) {
                 case R.id.rbLeft:
+                    /* Expense */
                     if (isSelected) {
-                        /*TextView signText = view.findViewById(R.id.sign);
-                        signText.setText("-");*/
-                        /*rbLeft.setTextColor(getResources().getColor(R.color.white));
-                        rbRight.setTextColor(getResources().getColor(R.color.primaryColor));*/
-
-                        Toast.makeText(getContext(), "left", Toast.LENGTH_LONG).show();
+                        operatorText.setText("-");
+                        rbLeft.setTextColor(ContextCompat.getColor(getContext(),R.color.white));
+                        rbRight.setTextColor(ContextCompat.getColor(getContext(),R.color.primaryColor));
                     }
                     break;
                 case R.id.rbRight:
+                    /* Income */
                     if (isSelected) {
-                        /*TextView signText = view.findViewById(R.id.sign);
-                        signText.setText("+");*/
-                        /*rbRight.setTextColor(getResources().getColor(R.color.primaryColor));
-                        rbLeft.setTextColor(getResources().getColor(R.color.white));*/
-                        Toast.makeText(getContext(), "right", Toast.LENGTH_LONG).show();
+                        operatorText.setText("+");
+                        rbRight.setTextColor(ContextCompat.getColor(getContext(),R.color.white));
+                        rbLeft.setTextColor(ContextCompat.getColor(getContext(),R.color.primaryColor));
                     }
                     break;
             }
