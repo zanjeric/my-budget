@@ -45,5 +45,4 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth' // Firebase Authentication library
     implementation 'com.google.android.gms:play-services-auth:18.1.0' // Google Play services library
     implementation 'com.google.firebase:firebase-firestore' // Cloud Firestore library
-
 }
