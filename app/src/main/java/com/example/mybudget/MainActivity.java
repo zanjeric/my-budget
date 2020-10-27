@@ -2,15 +2,21 @@ package com.example.mybudget;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -22,26 +28,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         /* Bottom menu */
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavMenu);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
-        /* ADD BUTTON */
+        /* Floating Button */
         FloatingActionButton btnOpenPage = findViewById(R.id.btnOpenPage);
         btnOpenPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.Theme_Design_BottomSheetDialog);
-                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_page_up,(LinearLayout)findViewById(R.id.pageUpContainer));
-                bottomSheetView.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
+               BottomDialogFragment bottomDialog = new BottomDialogFragment();
+               bottomDialog.show(getSupportFragmentManager(),"bottomDialog");
             }
         });
     }
@@ -69,5 +68,4 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
 }
