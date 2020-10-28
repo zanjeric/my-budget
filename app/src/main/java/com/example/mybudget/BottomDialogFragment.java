@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -86,7 +87,7 @@ public class BottomDialogFragment extends BottomSheetDialogFragment {
         categorySpinner = view.findViewById(R.id.categorySpinner);
         ArrayList<String> categoryNameArray = new ArrayList<>();
         ArrayList<String> categoryIdArray = new ArrayList<>();
-        categoryNameArray.add("Choose category...");
+        categoryNameArray.add("Select Category...");
         categoryIdArray.add("0");
         /* Get categories from DB */
         db.collection("categories")
@@ -122,29 +123,38 @@ public class BottomDialogFragment extends BottomSheetDialogFragment {
                     amountNumber *= -1;
                 }
 
-                Map<String, Object> docData = new HashMap<>();
-                docData.put("UID", db.document("users/" + uid));
-                docData.put("amount",amountNumber);
-                docData.put("category",db.document("categories/" + categoryIdArray.get(categorySpinner.getSelectedItemPosition())));
-                docData.put("date",new Timestamp(new Date()));
-                docData.put("title","");
+                if(categorySpinner.getSelectedItemPosition() != 0 && amountNumber != 0) {
 
-                db.collection("transactions").document()
-                        .set(docData)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
+                    Map<String, Object> docData = new HashMap<>();
+                    docData.put("UID", db.document("users/" + uid));
+                    docData.put("amount", amountNumber);
+                    docData.put("category", db.document("categories/" + categoryIdArray.get(categorySpinner.getSelectedItemPosition())));
+                    docData.put("date", new Timestamp(new Date()));
+                    docData.put("title", "");
 
-                dismiss();
+                    db.collection("transactions").document()
+                            .set(docData)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error writing document", e);
+                                }
+                            });
+
+                    dismiss();
+                }
+                else if(amountNumber == 0) {
+                    Toast.makeText(getContext(), "Please enter a valid number!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(getContext(), "Please select a category!", Toast.LENGTH_LONG).show();
+                }
             }
         });
         //setStyle(STYLE_NORMAL,R.style.Theme_Design_BottomSheetDialog);
