@@ -20,14 +20,31 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+class Category {
+    public String id;
+    public String name;
+    public String color;
+
+    public Category(String id, String name, String color) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+    }
+}
 
 public class BottomDialogFragment extends BottomSheetDialogFragment {
     private FirebaseFirestore db;
@@ -47,6 +64,11 @@ public class BottomDialogFragment extends BottomSheetDialogFragment {
         /* Firestore Database */
         db = FirebaseFirestore.getInstance();
 
+        /* Get current user */
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uid = user.getUid();
+
         /* Radio buttons */
         rbLeft= view.findViewById(R.id.rbLeft);
         rbRight = view.findViewById(R.id.rbRight);
@@ -62,26 +84,50 @@ public class BottomDialogFragment extends BottomSheetDialogFragment {
 
         /* Choose category */
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayList<String> categoryArray = getAllCategories();
-        categoryArray.add("Choose category...");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),R.layout.support_simple_spinner_dropdown_item,categoryArray);
+        ArrayList<String> categoryNameArray = new ArrayList<>();
+        ArrayList<String> categoryIdArray = new ArrayList<>();
+        categoryNameArray.add("Choose category...");
+        categoryIdArray.add("0");
+        /* Get categories from DB */
+        db.collection("categories")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String id = document.getId();
+                                String name = document.get("name").toString();
+                                //String color = document.get("color").toString();
+                                //Category category = new Category(id,name,color);
+                                categoryNameArray.add(name);
+                                categoryIdArray.add(id);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),R.layout.support_simple_spinner_dropdown_item,categoryNameArray);
         categorySpinner.setAdapter(adapter);
 
         /* Save transaction to DB */
         view.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 amountNumber = Integer.parseInt(amountText.getText().toString());
                 if(!isIncome) {
                     amountNumber *= -1;
                 }
-                Log.d(TAG, "Amount:" + amountNumber);
+
                 Map<String, Object> docData = new HashMap<>();
-                docData.put("UID", null);
+                docData.put("UID", db.document("users/" + uid));
                 docData.put("amount",amountNumber);
-                docData.put("category",null);
-                docData.put("date",null);
-                docData.put("title",null);
+                docData.put("category",db.document("categories/" + categoryIdArray.get(categorySpinner.getSelectedItemPosition())));
+                docData.put("date",new Timestamp(new Date()));
+                docData.put("title","");
 
                 db.collection("transactions").document()
                         .set(docData)
@@ -98,15 +144,7 @@ public class BottomDialogFragment extends BottomSheetDialogFragment {
                             }
                         });
 
-                    dismiss();
-
-                /*docData.put("stringExample", "Hello world!");
-                docData.put("booleanExample", true);
-                docData.put("numberExample", 3.14159265);
-                docData.put("dateExample", new Timestamp(new Date()));
-                docData.put("listExample", Arrays.asList(1, 2, 3));
-                docData.put("nullExample", null);*/
-
+                dismiss();
             }
         });
         //setStyle(STYLE_NORMAL,R.style.Theme_Design_BottomSheetDialog);
@@ -142,25 +180,4 @@ public class BottomDialogFragment extends BottomSheetDialogFragment {
         }
     };
 
-    public ArrayList<String> getAllCategories() {
-        //Map<java.lang.String, Object> categoriesObject [] = new HashMap<>()[];
-        ArrayList<String> names = new ArrayList<String>();
-        db.collection("categories")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                 names.add(document.get("name").toString());
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
-        return names;
-    }
 }
