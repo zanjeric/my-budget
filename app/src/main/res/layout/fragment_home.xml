@@ -64,7 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="5.134€"
+                android:text=""
                 android:textColor="@color/white"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -135,7 +135,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="400€"
+                android:text=""
                 android:textColor="@color/white"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -202,11 +202,11 @@
                 app:layout_constraintTop_toTopOf="@id/imageIconExpenses" />
 
             <TextView
-                android:id="@+id/expanseValue"
+                android:id="@+id/expenseValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="200€"
+                android:text=""
                 android:textColor="@color/white"
                 android:ellipsize="end"
                 android:maxLines="2"
