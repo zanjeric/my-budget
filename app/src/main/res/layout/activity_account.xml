@@ -53,21 +53,33 @@
         app:layout_constraintEnd_toEndOf="@+id/viewSupporter"
         />-->
 
-    <Button
+    <!--    <Button-->
+<!--        android:id="@+id/btnGoogleSignIn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/secondary_button_background"-->
+<!--        android:layout_marginBottom="40dp"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_marginEnd="40dp"-->
+<!--        android:text="Google Sign In"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textAllCaps="false"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/viewSupporter"-->
+<!--        />-->
+
+
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/btnGoogleSignIn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/secondary_button_background"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:text="Google Sign In"
+        android:layout_marginBottom="44dp"
+        android:textAllCaps="false"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/viewSupporter"
-        />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textSignInWith"
