@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,10 +22,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 
 public class HomeFragment extends Fragment {
 
     private FirebaseFirestore db;
+    private RecyclerView transactionsRecyclerView;
+    private ArrayList<Transaction> list;
+    private TransactionAdapter transactionAdapter;
     private TextView balance, income, expense;
     private static final String TAG = "Fetch transactions";
 
@@ -38,6 +45,19 @@ public class HomeFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String uid = user.getUid();
+
+        transactionsRecyclerView = view.findViewById(R.id.transactions);
+        transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        list = new ArrayList<Transaction>();
+        list.add(new Transaction("3","Health","10.11.2020","hello",100));
+        list.add(new Transaction("3","Food","12.34.3234","hello",200));
+        list.add(new Transaction("3","Other","12.34.3234","hello",100));
+        list.add(new Transaction("3","Transport","12.34.3234","hello",200));
+        transactionAdapter = new TransactionAdapter(getActivity(), list);
+        transactionAdapter.notifyDataSetChanged();
+        transactionsRecyclerView.setAdapter(transactionAdapter);
 
 
         balance = view.findViewById(R.id.balanceValue);
