@@ -8,220 +8,137 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="6dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="150dp"
+        android:background="@drawable/dashboard_header_background"
+        android:orientation="vertical"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/balance_badge_background">
-
-            <View
-                android:layout_width="80dp"
-                android:layout_height="0dp"
-                android:background="@drawable/bubbles_background"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageIcon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="10dp"
-                android:contentDescription="@string/app_name"
-                android:padding="10dp"
-                android:src="@drawable/ic_monetization"
-                android:tint="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:orientation="vertical"
+            >
             <TextView
                 android:id="@+id/balanceTitle"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="0dp"
-                android:text="Balance"
+                android:text="Total Balance"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageIcon"
-                app:layout_constraintTop_toTopOf="@id/imageIcon" />
-
+                />
             <TextView
                 android:id="@+id/balanceValue"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text=""
+                android:gravity="center"
+                android:text="3,234.00€"
                 android:textColor="@color/white"
-                android:ellipsize="end"
-                android:maxLines="2"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/balanceTitle"
-                app:layout_constraintStart_toStartOf="@+id/balanceTitle"
-                app:layout_constraintTop_toBottomOf="@+id/balanceTitle"
-                 />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="6dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/dashboard_badge_background">
-
-            <View
-                android:layout_width="80dp"
-                android:layout_height="0dp"
-                android:background="@drawable/bubbles_background"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageIconIncome"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="10dp"
-                android:contentDescription="@string/app_name"
-                android:padding="10dp"
-                android:src="@drawable/ic_baseline_add_24"
-                android:tint="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 />
+        </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:background="@drawable/balance_badge_background"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp"
+            >
             <TextView
                 android:id="@+id/incomeTitle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="0dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
                 android:text="Income"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageIconIncome"
-                app:layout_constraintTop_toTopOf="@id/imageIconIncome" />
+                />
 
             <TextView
                 android:id="@+id/incomeValue"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text=""
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="3,234.00€"
                 android:textColor="@color/white"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textSize="30sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/incomeTitle"
-                app:layout_constraintStart_toStartOf="@+id/incomeTitle"
-                app:layout_constraintTop_toBottomOf="@+id/incomeTitle"
                 />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="6dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="150dp"
             android:layout_height="80dp"
-            android:background="@drawable/expenses_badge_background">
-
-            <View
-                android:layout_width="80dp"
-                android:layout_height="0dp"
-                android:background="@drawable/bubbles_background"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageIconExpenses"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="0dp"
-                android:contentDescription="@string/app_name"
-                android:padding="10dp"
-                android:src="@drawable/ic_minimize"
-                android:tint="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
+            android:background="@drawable/balance_badge_background"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            >
             <TextView
                 android:id="@+id/expensesTitle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Expenses"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Expense"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageIconExpenses"
-                app:layout_constraintTop_toTopOf="@id/imageIconExpenses" />
+                />
 
             <TextView
                 android:id="@+id/expenseValue"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text=""
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="3,234.00€"
                 android:textColor="@color/white"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textSize="30sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/expensesTitle"
-                app:layout_constraintStart_toStartOf="@+id/expensesTitle"
-                app:layout_constraintTop_toBottomOf="@+id/expensesTitle"
                 />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+        <TextView
+            android:id="@+id/latestTransactionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Latest Transactions"
+            android:textColor="@color/darkGrayColor"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>

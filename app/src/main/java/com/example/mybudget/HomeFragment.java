@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment {
                             }
                             balance.setText(sumBalance+"€");
                             income.setText(sumIncome+"€");
-                            expense.setText(Math.abs(sumExpense)+"€");
+                            expense.setText(sumExpense+"€");
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
