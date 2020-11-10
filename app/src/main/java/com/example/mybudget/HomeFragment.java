@@ -15,14 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class HomeFragment extends Fragment {
@@ -45,20 +49,6 @@ public class HomeFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String uid = user.getUid();
-
-        transactionsRecyclerView = view.findViewById(R.id.transactions);
-        transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        list = new ArrayList<Transaction>();
-        list.add(new Transaction("3","Health","10.11.2020","hello",100));
-        list.add(new Transaction("3","Food","12.34.3234","hello",200));
-        list.add(new Transaction("3","Other","12.34.3234","hello",100));
-        list.add(new Transaction("3","Transport","12.34.3234","hello",200));
-        transactionAdapter = new TransactionAdapter(getActivity(), list);
-        transactionAdapter.notifyDataSetChanged();
-        transactionsRecyclerView.setAdapter(transactionAdapter);
-
 
         balance = view.findViewById(R.id.balanceValue);
         income = view.findViewById(R.id.incomeValue);
@@ -98,7 +88,42 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-        Log.d("TAG", balance.getText().toString());
+        /* Transaction RecyclerView */
+        transactionsRecyclerView = view.findViewById(R.id.transactions);
+        transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        list = new ArrayList<Transaction>();
+        /*list.add(new Transaction("3","Health","10.11.2020","hello",100));
+        list.add(new Transaction("3","Food","12.34.3234","hello",200));
+        list.add(new Transaction("3","Other","12.34.3234","hello",100));
+        list.add(new Transaction("3","Transport","12.34.3234","hello",200));
+         */
+
+        db.collection("transactions")
+                .whereEqualTo("UID", userRef)
+                //.orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String categoryName = "Category";
+                                Timestamp timestamp = (Timestamp) document.get("date");
+                                String date = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(timestamp.toDate());
+
+                                int amount = Integer.parseInt(document.get("amount").toString());
+                                list.add(new Transaction(uid,categoryName,date,"",amount));
+                            }
+                            transactionAdapter = new TransactionAdapter(getActivity(), list);
+                            transactionAdapter.notifyDataSetChanged();
+                            transactionsRecyclerView.setAdapter(transactionAdapter);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         return view;
     }

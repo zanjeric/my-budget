@@ -17,7 +17,7 @@
             android:id="@+id/categoryName"
             android:layout_marginTop="15dp"
             android:textSize="16sp"
-            android:textColor="#000C5D"
+            android:textColor="@color/primaryColor"
             android:text="Health"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -41,7 +41,7 @@
         <TextView
             android:id="@+id/transactionAmount"
             android:textSize="16sp"
-            android:textColor="#F63EA5"
+            android:textColor="@color/darkGrayColor"
             android:layout_marginTop="8dp"
             android:text="0€"
             android:gravity="center"

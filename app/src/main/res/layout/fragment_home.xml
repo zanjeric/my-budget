@@ -135,7 +135,7 @@
             android:layout_gravity="center"
             android:text="Latest Transactions"
             android:textColor="@color/darkGrayColor"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textAllCaps="true"
             />
