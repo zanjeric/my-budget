@@ -127,16 +127,18 @@ public class HomeFragment extends Fragment {
         // Line chart for balance
         BalanceLineChart balanceLineChart = new BalanceLineChart();
         List<String> dates = new ArrayList<>();
-        dates.add("2020-01-10");
-        dates.add("2020-03-23");
-        dates.add("2020-05-25");
-        dates.add("2020-06-15");
+        dates.add("2020-01-29");
+        dates.add("2020-04-11");
+        dates.add("2020-06-25");
+        dates.add("2020-09-05");
+        dates.add("2020-11-02");
 
         List<Double> amounts = new ArrayList<>();
-        amounts.add(1.1);
-        amounts.add(10.5);
-        amounts.add(23.2);
-        amounts.add(23.3);
+        amounts.add(300.2);
+        amounts.add(100.2);
+        amounts.add(500.2);
+        amounts.add(900.2);
+        amounts.add(330.2);
 
         balanceLineChart.render(view,R.id.balanceChart,dates,amounts);
 
