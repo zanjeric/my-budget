@@ -20,14 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -91,30 +89,31 @@ public class HomeFragment extends Fragment {
         /* Transaction RecyclerView */
         transactionsRecyclerView = view.findViewById(R.id.transactions);
         transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        transactionsRecyclerView.setNestedScrollingEnabled(false);
 
 
         list = new ArrayList<Transaction>();
-        /*list.add(new Transaction("3","Health","10.11.2020","hello",100));
-        list.add(new Transaction("3","Food","12.34.3234","hello",200));
-        list.add(new Transaction("3","Other","12.34.3234","hello",100));
-        list.add(new Transaction("3","Transport","12.34.3234","hello",200));
-         */
+        //list.add(new Transaction("3","Health","10.11.2020","hello",100));
 
         db.collection("transactions")
                 .whereEqualTo("UID", userRef)
-                //.orderBy("date", Query.Direction.ASCENDING)
+                //.orderBy("category", Query.Direction.ASCENDING)
+                .limit(4)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String categoryName = "Category";
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                String categoryName = "catName";
+
                                 Timestamp timestamp = (Timestamp) document.get("date");
                                 String date = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(timestamp.toDate());
 
                                 int amount = Integer.parseInt(document.get("amount").toString());
                                 list.add(new Transaction(uid,categoryName,date,"",amount));
+
                             }
                             transactionAdapter = new TransactionAdapter(getActivity(), list);
                             transactionAdapter.notifyDataSetChanged();
@@ -124,6 +123,22 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+
+        // Line chart for balance
+        BalanceLineChart balanceLineChart = new BalanceLineChart();
+        List<String> dates = new ArrayList<>();
+        dates.add("2020-01-10");
+        dates.add("2020-03-23");
+        dates.add("2020-05-25");
+        dates.add("2020-06-15");
+
+        List<Double> amounts = new ArrayList<>();
+        amounts.add(1.1);
+        amounts.add(10.5);
+        amounts.add(23.2);
+        amounts.add(23.3);
+
+        balanceLineChart.render(view,R.id.balanceChart,dates,amounts);
 
         return view;
     }

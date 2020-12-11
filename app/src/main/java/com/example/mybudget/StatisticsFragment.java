@@ -13,6 +13,12 @@ public class StatisticsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_statistics, container, false);
+        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
+
+        // Line chart for balance
+        //BalanceLineChart balanceLineChart = new BalanceLineChart();
+        //balanceLineChart.render(view,R.id.balanceChartStatistics);
+
+        return view;
     }
 }

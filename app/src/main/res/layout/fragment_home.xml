@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="true">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -133,25 +137,28 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="Latest Transactions"
+            android:text="Latest"
             android:textColor="@color/darkGrayColor"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textAllCaps="true"
             />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/transactions"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_height="wrap_content">
-
+                >
             </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
 
-
-            <TextView
+            <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/endpage"
@@ -160,10 +167,25 @@
                 android:text="No More Transactions"
                 android:layout_gravity="center"
                 android:gravity="center"
-                 />
+                 /> -->
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/balanceChart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        </com.github.mikephil.charting.charts.LineChart>
+    </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
