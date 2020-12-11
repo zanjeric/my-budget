@@ -125,6 +125,7 @@ public class BalanceLineChart{
         leftAxis.setAxisMinimum(0f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setValueFormatter(new ClaimsYAxisValueFormatter());
+        lineChart.animateY(1000);
 
         // Amounts
         ArrayList<Entry> values = new ArrayList<>();
