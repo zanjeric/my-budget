@@ -19,11 +19,8 @@ public class BalanceBarChart {
     private void initializeBarChart() {
         barChart.getDescription().setEnabled(false);
 
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
         barChart.setMaxVisibleValueCount(4);
         barChart.getXAxis().setDrawGridLines(false);
-        // scaling can now only be done on x- and y-axis separately
         barChart.setPinchZoom(false);
 
         barChart.setDrawBarShadow(false);
@@ -37,10 +34,8 @@ public class BalanceBarChart {
         barChart.getAxisRight().setEnabled(false);
         barChart.getAxisLeft().setEnabled(true);
         barChart.getXAxis().setDrawGridLines(false);
-        // add a nice and smooth animation
+
         barChart.animateY(1500);
-
-
         barChart.getLegend().setEnabled(false);
 
         barChart.getAxisRight().setDrawLabels(false);
@@ -73,6 +68,5 @@ public class BalanceBarChart {
 
         barChart.setFitBars(true);
         barChart.setData(barData);
-        barChart.animateY(1500);
     }
 }
