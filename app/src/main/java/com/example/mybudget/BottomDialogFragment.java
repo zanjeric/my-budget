@@ -35,18 +35,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-class Category {
-    public String id;
-    public String name;
-    public String color;
-
-    public Category(String id, String name, String color) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
-    }
-}
-
 public class BottomDialogFragment extends BottomSheetDialogFragment {
     private FirebaseFirestore db;
     private RadioButton rbLeft, rbRight;

@@ -1,9 +1,17 @@
 package com.example.mybudget;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -14,16 +22,55 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends Fragment {
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+    private TextView username, email;
 
-    @Override
+    //extends PreferenceFragmentCompat
+    /*@Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
+    }*/
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+
+        username = view.findViewById(R.id.profileUsername);
+        email = view.findViewById(R.id.profileEmail);
+
+        username.setText(mAuth.getCurrentUser().getEmail());
+        email.setText(mAuth.getCurrentUser().getEmail());
+
+
+        Button logoutBtn = (Button) view.findViewById(R.id.buttonLogout);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Firebase sign out
+                mAuth.signOut();
+
+                mGoogleSignInClient.signOut();
+
+                getActivity().finish();
+                Toast.makeText(getActivity(), "Signed out", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
     }
 
-    @Override
+    /*@Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -49,5 +96,5 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             return false;
         });
-    }
+    }*/
 }
