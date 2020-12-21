@@ -5,7 +5,7 @@
     android:layout_height="match_parent" >
 
     <TextView style="?android:textAppearanceMedium"
-        android:id="@+id/month_title"
+        android:id="@+id/monthTitle"
         android:padding="16dp"
         android:lineSpacingMultiplier="1.2"
         android:layout_width="match_parent"
