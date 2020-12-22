@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -47,6 +48,8 @@ public class HistoryFragment extends Fragment {
 
     private FirebaseFirestore db;
     private List<TransactionParcel> transactions;
+
+
 
     @Nullable
     @Override
