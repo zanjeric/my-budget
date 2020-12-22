@@ -44,18 +44,9 @@ class ClaimsXAxisValueFormatter extends ValueFormatter {
         Integer position = Math.round(value);
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd");
 
-        if (value >= 0 && value < 1) {
-            position = 0;
-        } else if (value >= 1 && value < 2) {
-            position = 1;
-        } else if (value >= 2 && value < 3) {
-            position = 2;
-        } else if (value >= 3 && value < 4) {
-            position = 3;
-        }
-        if (position < datesList.size())
-            return sdf.format(new Date((getDateInMilliSeconds(datesList.get(position), "yyyy-MM-dd"))));
-        return "";
+//        if (position < datesList.size())
+            return sdf.format(new Date((getDateInMilliSeconds(datesList.get(position), "yyyy-MM-dd HH:mm"))));
+//        return "";
     }
 }
 
@@ -106,8 +97,7 @@ public class BalanceLineChart{
        setChartProps();
 
         XAxis xAxis = lineChart.getXAxis();
-        xAxis.enableGridDashedLine(5f, 15f, 0f);
-        xAxis.setAxisMaximum(4f);
+        xAxis.setAxisMaximum(amounts.size() - 1);
         xAxis.setAxisMinimum(0f);
         xAxis.setLabelCount(5, true);
         xAxis.setValueFormatter(new ClaimsXAxisValueFormatter(dates));
@@ -127,9 +117,16 @@ public class BalanceLineChart{
         leftAxis.setValueFormatter(new ClaimsYAxisValueFormatter());
         lineChart.animateY(1000);
 
+//        long min = ClaimsXAxisValueFormatter.getDateInMilliSeconds(dates.get(0), "yyyy-MM-dd HH:mm");
+//        long max = ClaimsXAxisValueFormatter.getDateInMilliSeconds(dates.get(dates.size()-1), "yyy-MM-dd HH:mm");
+//        long delta = max - min;
+        //[Xi - min(X)]/[max(X) - min(X)]
+
         // Amounts
         ArrayList<Entry> values = new ArrayList<>();
         for(int i=0; i<amounts.size();i++) {
+//            double normalizedPosition = (ClaimsXAxisValueFormatter.getDateInMilliSeconds(dates.get(i), "yyy-MM-dd HH:mm") - min)/ (double) delta;
+//            normalizedPosition*=(amounts.size()-1);
             values.add(new Entry(i, amounts.get(i).floatValue()));
         }
 

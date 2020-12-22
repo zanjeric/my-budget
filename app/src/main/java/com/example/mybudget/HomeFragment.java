@@ -18,20 +18,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
     private FirebaseFirestore db;
     private RecyclerView transactionsRecyclerView;
-    private ArrayList<Transaction> list;
+    private ArrayList<Transaction> recentTransactions;
     private TransactionAdapter transactionAdapter;
     private TextView balance, income, expense;
     private static final String TAG = "Fetch transactions";
@@ -92,56 +96,64 @@ public class HomeFragment extends Fragment {
         transactionsRecyclerView.setNestedScrollingEnabled(false);
 
 
-        list = new ArrayList<Transaction>();
-        //list.add(new Transaction("3","Health","10.11.2020","hello",100));
-
-        db.collection("transactions")
-                .whereEqualTo("UID", userRef)
-                //.orderBy("category", Query.Direction.ASCENDING)
-                .limit(4)
+        recentTransactions = new ArrayList<Transaction>();
+        CollectionReference transactionRef = db.collection("transactions");
+        db.collection("categories")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                String categoryName = "catName";
-
-                                Timestamp timestamp = (Timestamp) document.get("date");
-                                String date = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(timestamp.toDate());
-
-                                int amount = Integer.parseInt(document.get("amount").toString());
-                                list.add(new Transaction(uid,categoryName,date,"",amount));
-
-                            }
-                            transactionAdapter = new TransactionAdapter(getActivity(), list);
-                            transactionAdapter.notifyDataSetChanged();
-                            transactionsRecyclerView.setAdapter(transactionAdapter);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                .addOnCompleteListener(task -> {
+                    Map<String, String> categories = new HashMap<>();
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            categories.put(document.getReference().getId(), (String) document.get("name"));
                         }
+                        transactionRef.whereEqualTo("UID", userRef).orderBy("date", Query.Direction.DESCENDING).limit(4).get().addOnCompleteListener(t -> {
+                            if (t.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : t.getResult()) {
+                                    String categoryName = categories.get(((DocumentReference) document.get("category")).getId());
+                                    Log.d("Transaction.category", "" + categoryName);
+
+                                    Timestamp timestamp = (Timestamp) document.get("date");
+                                    String date = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(timestamp.toDate());
+                                    Log.d("Transaction.date", date);
+
+                                    int amount = Integer.parseInt(document.get("amount").toString());
+                                    Log.d("Transaction.amount", String.valueOf(amount));
+
+                                    recentTransactions.add(new Transaction(uid, categoryName, date, categoryName, amount));
+                                }
+                                transactionAdapter = new TransactionAdapter(getActivity(), recentTransactions);
+                                transactionAdapter.notifyDataSetChanged();
+                                transactionsRecyclerView.setAdapter(transactionAdapter);
+                            }
+                        });
                     }
                 });
 
         // Line chart for balance
         BalanceLineChart balanceLineChart = new BalanceLineChart();
         List<String> dates = new ArrayList<>();
-        dates.add("2020-01-29");
-        dates.add("2020-04-11");
-        dates.add("2020-06-25");
-        dates.add("2020-09-05");
-        dates.add("2020-11-02");
-
         List<Double> amounts = new ArrayList<>();
-        amounts.add(300.2);
-        amounts.add(100.2);
-        amounts.add(500.2);
-        amounts.add(900.2);
-        amounts.add(330.2);
 
-        balanceLineChart.render(view,R.id.balanceChart,dates,amounts);
+        db.collection("transactions")
+                .whereEqualTo("UID", userRef)
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        double cumSum = 0;
+                        for(QueryDocumentSnapshot document : task.getResult()) {
+                            Double amount = Double.parseDouble(document.get("amount").toString());
+                            cumSum += amount;
 
+                            Timestamp timestamp = (Timestamp) document.get("date");
+                            String date = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(timestamp.toDate());
+
+                            dates.add(date);
+                            amounts.add(cumSum);
+                        }
+                        balanceLineChart.render(view,R.id.balanceChart,dates,amounts);
+                    }
+                });
         return view;
     }
 }
