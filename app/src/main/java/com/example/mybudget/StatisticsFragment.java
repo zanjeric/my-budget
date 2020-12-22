@@ -52,31 +52,8 @@ public class StatisticsFragment extends Fragment {
 
         // Line chart for balance
         BalanceLineChart balanceLineChart = new BalanceLineChart();
-//        List<String> dates = new ArrayList<>();
-//        dates.add("2020-02-20");
-//        dates.add("2020-05-11");
-//        dates.add("2020-07-05");
-//        dates.add("2020-08-15");
-//        dates.add("2020-12-02");
-//
-//        List<Double> amounts = new ArrayList<>();
-//        amounts.add(200.2);
-//        amounts.add(500.2);
-//        amounts.add(800.2);
-//        amounts.add(100.2);
-//        amounts.add(330.2);
-
-
         // Pie chart for categories
         CategoryPieChart categoryPieChart = new CategoryPieChart();
-        //initializing data
-//        Map<String, Integer> categoryAmountMap = new HashMap<>();
-//        categoryAmountMap.put("Health",100);
-//        categoryAmountMap.put("Food",330);
-//        categoryAmountMap.put("Clothes",200);
-//        categoryAmountMap.put("Transport",150);
-//        categoryAmountMap.put("Other",50);
-
         // Bar chart
         BalanceBarChart balanceBarChart = new BalanceBarChart();
         balanceBarChart.render(view, R.id.barChart);
@@ -116,7 +93,7 @@ public class StatisticsFragment extends Fragment {
                                     }
 
                                     Timestamp timestamp = (Timestamp) document.get("date");
-                                    String date = new SimpleDateFormat("yyyy-MM-dd").format(timestamp.toDate());
+                                    String date = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(timestamp.toDate());
 
                                     dates.add(date);
                                     amounts.add(cumSum);

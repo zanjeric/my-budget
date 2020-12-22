@@ -28,6 +28,7 @@ public class CategoryPieChart {
 
         pieChart.getDescription().setEnabled(false);
         pieChart.getLegend().setEnabled(false);
+        pieChart.setEntryLabelColor(Color.BLACK);
 
         //initializing colors for the entries
         ArrayList<Integer> colors = new ArrayList<>();

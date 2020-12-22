@@ -4,16 +4,19 @@
     android:layout_height="match_parent">
 
     <TextView
-    android:id="@+id/historyTitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:text="History"
-    android:textAllCaps="true"
-    android:textColor="@color/darkGrayColor"
-    android:textSize="18sp"
-    android:textStyle="bold" />
+        android:id="@+id/historyTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/primaryColor"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="History"
+        android:textAllCaps="true"
+        android:textColor="@color/darkGrayColor"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
