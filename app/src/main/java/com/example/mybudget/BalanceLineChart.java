@@ -53,7 +53,7 @@ class ClaimsXAxisValueFormatter extends ValueFormatter {
         } else if (value >= 3 && value < 4) {
             position = 3;
         }
-        if (position <= datesList.size())
+        if (position < datesList.size())
             return sdf.format(new Date((getDateInMilliSeconds(datesList.get(position), "yyyy-MM-dd"))));
         return "";
     }
@@ -122,7 +122,7 @@ public class BalanceLineChart{
 
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.removeAllLimitLines();
-        leftAxis.setAxisMinimum(0f);
+//        leftAxis.setAxisMinimum(0f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setValueFormatter(new ClaimsYAxisValueFormatter());
         lineChart.animateY(1000);

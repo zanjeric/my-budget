@@ -2,68 +2,67 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:nestedScrollingEnabled="true">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:background="@color/white"
-        >
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/balanceChartStatistics"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="30dp">
-        </com.github.mikephil.charting.charts.LineChart>
 
-        <TextView
-            android:id="@+id/categoryChartTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:text="Categories"
-            android:textColor="@color/darkGrayColor"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            />
+            android:layout_marginTop="85dp"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/categoryChart"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="50dp"
-            android:layout_gravity="center_horizontal">
-        </com.github.mikephil.charting.charts.PieChart>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/balanceChartStatistics"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="30dp"></com.github.mikephil.charting.charts.LineChart>
 
-        <TextView
-            android:id="@+id/balanceChartTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="Balance"
-            android:textColor="@color/darkGrayColor"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            />
+            <TextView
+                android:id="@+id/categoryChartTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Expenses per category"
+                android:textAllCaps="true"
+                android:textColor="@color/darkGrayColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:padding="30dp"
-            android:layout_marginBottom="30dp">
-        </com.github.mikephil.charting.charts.BarChart>
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/categoryChart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="50dp"></com.github.mikephil.charting.charts.PieChart>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/balanceChartTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Balance"
+                android:textAllCaps="true"
+                android:textColor="@color/darkGrayColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="30dp"
+                android:padding="30dp"></com.github.mikephil.charting.charts.BarChart>
+
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>
