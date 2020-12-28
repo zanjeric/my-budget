@@ -41,7 +41,7 @@ class ClaimsXAxisValueFormatter extends ValueFormatter {
 
     @Override
     public String getAxisLabel(float value, AxisBase axis) {
-        Integer position = Math.round(value);
+        int position = Math.max(Math.round(value) - 1, 0);
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd");
 
         if (position < datesList.size())
@@ -99,7 +99,7 @@ public class BalanceLineChart{
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setAxisMaximum(amounts.size() - 1);
         xAxis.setAxisMinimum(0f);
-        xAxis.setLabelCount(5, true);
+        xAxis.setLabelCount(Math.min(amounts.size(), 5), true);
         xAxis.setValueFormatter(new ClaimsXAxisValueFormatter(dates));
 
         LimitLine ll2 = new LimitLine(35f, "");
