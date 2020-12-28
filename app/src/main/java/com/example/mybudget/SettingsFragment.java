@@ -19,10 +19,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
 public class SettingsFragment extends Fragment {
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private TextView username, email;
@@ -38,7 +43,15 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
+
+        /* Firestore Database */
+        db = FirebaseFirestore.getInstance();
+
+        /* Get current user */
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uid = user.getUid();
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -51,6 +64,15 @@ public class SettingsFragment extends Fragment {
 
         username.setText(mAuth.getCurrentUser().getEmail());
         email.setText(mAuth.getCurrentUser().getEmail());
+
+        DocumentReference userRef = db.document("users/"+uid);
+        userRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                username.setText(document != null ? document.getString("username") : "NULL");
+            }
+
+        });
 
 
         Button logoutBtn = (Button) view.findViewById(R.id.buttonLogout);
