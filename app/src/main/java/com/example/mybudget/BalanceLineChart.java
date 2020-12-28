@@ -44,9 +44,9 @@ class ClaimsXAxisValueFormatter extends ValueFormatter {
         Integer position = Math.round(value);
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd");
 
-//        if (position < datesList.size())
+        if (position < datesList.size())
             return sdf.format(new Date((getDateInMilliSeconds(datesList.get(position), "yyyy-MM-dd HH:mm"))));
-//        return "";
+        return "";
     }
 }
 

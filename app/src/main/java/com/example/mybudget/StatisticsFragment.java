@@ -2,8 +2,6 @@ package com.example.mybudget;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,10 +52,6 @@ public class StatisticsFragment extends Fragment {
         BalanceLineChart balanceLineChart = new BalanceLineChart();
         // Pie chart for categories
         CategoryPieChart categoryPieChart = new CategoryPieChart();
-        // Bar chart
-        BalanceBarChart balanceBarChart = new BalanceBarChart();
-        balanceBarChart.render(view, R.id.barChart);
-
 
         /* Firestore Database */
         db = FirebaseFirestore.getInstance();
